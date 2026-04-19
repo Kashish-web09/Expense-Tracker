@@ -1,0 +1,11 @@
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+    <% if(locals.email){ %>
+    <li class="breadcrumb-item"><a href="/logout">Logout</a></li>
+
+    <% }else{ %>
+    <li class="breadcrumb-item"><a href="/login">Login</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="/register">Register</a></li>
+   <% } %>
+</ol>
+</nav>
