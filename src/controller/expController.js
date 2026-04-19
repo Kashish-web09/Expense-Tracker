@@ -43,6 +43,7 @@ res.redirect('/');
 }
 showUpdatePage(req,res){
 const id=parseInt(req.params.id);
+const email=req.session.email;
 const expenses=expenseModels.getData();
 const expense=expenses.find(exp=>exp.id===parseInt(id) && exp.email===email);
 res.render('edit',{expense})
