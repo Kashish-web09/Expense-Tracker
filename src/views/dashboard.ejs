@@ -1,6 +1,7 @@
 <% if(locals.lastVisit) { %>
 <div class="alert alert-warning" role="alert">
-    Your Last Visit wa on: <%=locals.lastVisit %>
+    Your Last Visit was on:     <%= locals.lastVisit.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) %>
+
 </div>
 <% } %>
 
