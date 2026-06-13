@@ -1,4 +1,4 @@
-import ExpenseRepository from './exprepository.js';
+import ExpenseRepository from './expRepository.js';
 import ExpenseModel from './expModels.js';
 
 class ExpensesController {

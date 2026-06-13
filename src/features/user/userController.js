@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 import UserModel from "./userModels.js";
-import UserRepository from './userrepositary.js';
 
+import UserRepository from './userRepositary.js';
 class UserController {
 
     constructor() {
