@@ -9,7 +9,6 @@ A Full Stack Web Application built using Node.js, Express.js, EJS, and MongoDB t
 * MVC (Model-View-Controller) Architecture
 * Server-Side Rendering with EJS
 * MongoDB Database Integration
-* Input Validation using Express Validator
 * Secure Environment Variable Management using dotenv
 * API Documentation using Swagger
 * Error Handling Middleware
