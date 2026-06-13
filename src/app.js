@@ -1,17 +1,60 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
-import routes from './routes/expRoutes.js';
 import expressLayouts from 'express-ejs-layouts';
-import userRoutes from './routes/userRoutes.js';
-const app=express();
-app.set('view engine','ejs');
-app.set('views','./views');
-app.use(express.urlencoded({extended:true}))
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import swagger from 'swagger-ui-express';
+
+import routes from './features/expenses/expRoutes.js';
+import userRoutes from './features/user/userRoutes.js';
+
+import { setLastVisit } from './middleware/islastVisitMiddleware.js';
+import jwtAuth from './middleware/jwtAuthMiddleware.js';
+import { connectToMongoDB } from './config/mongoDb.js';
+
+import apiDocs from '../swagger.json' with { type: 'json' };
+import userApiRoutes from './features/user/apiRoutes.js';
+
+const app = express();
+
+// View Engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(path.resolve(), 'src', 'views'));
+
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
+
 app.use(expressLayouts);
-app.set('layout','layout');
-app.use('/',routes)
-app.use('/',userRoutes);
+app.set('layout', 'layout');
 
+// Swagger
+app.use(
+    '/api-docs',
+    swagger.serve,
+    swagger.setup(apiDocs)
+);
 
-app.listen(9800,()=>{
-    console.log("Server is running at http://localhost:9800")
-})
+// Public Routes (Login, Register, etc.)
+app.use('/', userRoutes);
+app.use('/api',userApiRoutes)
+// Protected Routes
+app.use(
+    '/',
+    jwtAuth,
+    setLastVisit,
+    routes
+);
+
+// Start Server
+app.listen(9800, async () => {
+    try {
+        await connectToMongoDB();
+
+        console.log('Server running at http://localhost:9800');
+    } catch (err) {
+        console.error('MongoDB connection failed:', err);
+    }
+});

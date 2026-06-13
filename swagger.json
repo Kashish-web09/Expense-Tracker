@@ -1,0 +1,77 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "version":"1.0.2",
+"description":"API for Personal Tracker App",
+"title":"Personal Tracker API"
+    },
+"servers":[
+    {
+        "url":"http://localhost:9800/api"
+    }
+],
+"components":{
+"securitySchemes": {
+  "JWT": {
+    "type": "http",
+    "scheme": "bearer",
+    "bearerFormat": "JWT"
+  }
+}
+},
+        "paths":{
+
+        "/products":{
+            "get":{
+                "summary":"Get Expenses",
+                "description":"User will get all expenses",
+                "security":[
+                 {"JWT":{}
+                }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "401":{
+                        "description":"Unauthorized"
+                    }
+                }
+            }
+        },
+    
+        "/users/signin":{
+            "post":{
+                "summary":"Login",
+                "description":"User login to get token",
+                "requestBody":{
+                    "content":
+                    {
+                        "application/json":{
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "email":{
+                                    "type":"string"
+                            },
+                            "password":{
+                                "type":"string"
+                            }
+
+                        }
+                        }
+                    }
+                }
+            },
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "400":{
+                        "description":"Incorret Credentials"
+                    }
+                }
+            }
+        }
+    }
+}

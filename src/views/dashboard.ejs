@@ -1,4 +1,13 @@
+<% if(locals.lastVisit) { %>
+<div class="alert alert-warning" role="alert">
+    Your Last Visit was on:
+    <%= locals.lastVisit.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) %>
+
+</div>
+<% } %>
+
 <%- include('partials/nav_links') %> 
+
 
 
 <h1>💰 Expense Tracker</h1>
@@ -25,8 +34,8 @@
 <div class="list-item bg-light">
 <span class="list-item " ><%=exp.name%></span>
 <span><%=exp.amount%></span>
-<a href="/delete/<%= exp.id %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this expense?')">Delete</a>
-<a href="/edit/<%= exp.id %>" class="btn btn-warning">Update</a>
+<a href="/delete/<%= exp._id %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this expense?')">Delete</a>
+<a href="/edit/<%= exp._id %>" class="btn btn-warning">Update</a>
 </div>
 
 <%}) %>
